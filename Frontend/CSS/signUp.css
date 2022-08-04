@@ -140,7 +140,6 @@ button{
     left: 0;
     transition: all .4s;
 }
-
 .btn:active:before{
     position: absolute;
     content: "";
@@ -230,7 +229,7 @@ button{
     flex-direction: column;
     height: auto;
     background-color:#fff;
-    border-radius: 10px;
+    border-radius: 10px
 }
 .split_form{
     display: flex;
