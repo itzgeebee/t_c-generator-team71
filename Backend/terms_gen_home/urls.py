@@ -22,11 +22,11 @@ from drf_yasg import openapi
 
 schema_view = get_schema_view(
     openapi.Info(
-        title="Snippets API",
+        title="Termbuddy API",
         default_version='v1',
-        description="Test description",
+        description="An api for all endpoints used in TermBuddy",
         terms_of_service="https://www.google.com/policies/terms/",
-        contact=openapi.Contact(email="contact@snippets.local"),
+        contact=openapi.Contact(email="codergideon@gmail.com"),
         license=openapi.License(name="BSD License"),
     ),
     public=True,
@@ -39,7 +39,9 @@ urlpatterns = [
     path('api/token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),  # generate login token
     path('api/token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),  # generate refresh token
     path('api/token/verify/', jwt_views.TokenVerifyView.as_view(), name='token_verify'),  # verify token
-    path('api/password_reset/', include('django_rest_passwordreset.urls', namespace='password_reset')),
+    path('api/password-reset/', include('django_rest_passwordreset.urls', namespace='password_reset')),
+    path('api/privacy-policies/', include("p_p.urls")),
+    path('api/terms-and-conditions/', include("t_c.urls")),
     # documentation urls
     re_path(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     re_path(r'^api/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
