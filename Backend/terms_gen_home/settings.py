@@ -9,6 +9,8 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
+from datetime import timedelta
+
 import environ
 # Initialise environment variables
 env = environ.Env()
@@ -43,7 +45,6 @@ INSTALLED_APPS = [
     't_c',
     'users',
     'rest_framework',
-    'rest_framework.authtoken',
     'django.contrib.admin',
     'rest_framework_simplejwt',
     'django_rest_passwordreset',
@@ -67,8 +68,8 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'terms_gen_home.urls'
 CORS_URLS_REGEX = r"^/api/.*"
 CORS_ALLOWED_ORIGINS = []
-# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_SSL = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 465
@@ -83,12 +84,14 @@ if DEBUG:
         'http://127.0.0.1:5500',
         'http://127.0.0.1:3000',
         'http://127.0.0.1:5500',
+        'http://127.0.0.1:5501',
+
     ]
 
 auth_classes = [
     'rest_framework.authentication.BasicAuthentication',
     'rest_framework.authentication.SessionAuthentication',
-    'rest_framework_simplejwt.authentication.JWTAuthentication'
+    'rest_framework_simplejwt.authentication.JWTAuthentication',
 ]
 
 REST_FRAMEWORK = {
@@ -170,3 +173,8 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=3),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=5),
+}
